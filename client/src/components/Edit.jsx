@@ -26,8 +26,8 @@ function Edit() {
 
     const submitData = (e)=>{
         e.preventDefault()
-        axios.put(`${import.meta.env.VITE_APP_API}/api/editItem/${id}`,data),
-        {headers:{authorization:`Bearer ${token}`}}
+        axios.put(`${import.meta.env.VITE_APP_API}/api/editItem/${id}`,data,
+        {headers:{authorization:`Bearer ${token}`}})
         .then(()=>{
             Swal.fire({
                 title: "อัพเดทข้อมูลสำเร็จ",

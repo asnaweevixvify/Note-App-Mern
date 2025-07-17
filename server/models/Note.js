@@ -8,6 +8,9 @@ const noteSchema = mongoose.Schema({
     content:{
         type:String,
         required:true
+    },
+    userId:{
+        type:String
     }
 },{timestamps:true})
 

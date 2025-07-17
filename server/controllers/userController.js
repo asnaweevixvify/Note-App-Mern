@@ -22,13 +22,14 @@ module.exports.login = (req,res)=>{
     .then((data)=>{
         if(data){
             const passwordDb = data.password
+            const userId = data._id
             bcrypt.compare(password,passwordDb,(err,result)=>{
                 if(err){
                     return res.status(400).json({error:err})
                 }
                 if(result){
-                    const token = jwt.sign({userId:data._id},process.env.JWT_SECRET,{expiresIn:'1d'})
-                    return res.json({msg:'เข้าสู่ระบบสำเร็จ',token,username})
+                    const token = jwt.sign({userId},process.env.JWT_SECRET,{expiresIn:'1d'})
+                    return res.json({msg:'เข้าสู่ระบบสำเร็จ',token,username,userId})
                 }
                 else{
                     return res.status(401).json({msg:'รหัสผ่านไม่ถูกต้อง'})

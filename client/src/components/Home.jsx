@@ -4,9 +4,12 @@ import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import confirmAlert from '../../services/confirmDelete'
+import { getToken,getId} from '../../services/authorize'
 
 function Home({status}) {
     const [data,setData] = useState([])
+    const token = getToken()
+    const userId = getId()
 
     const getData = ()=>{
         axios.get(`${import.meta.env.VITE_APP_API}/api/getData`)
@@ -49,7 +52,7 @@ function Home({status}) {
                     <div className="note-box" key={index}>
                         <h2>{e.title}</h2>
                         {e.content}
-                        {status && <div className="icon">
+                        {status && e.userId === userId && <div className="icon">
                             <Link to={`/edit/${e._id}`}><i className="fa-solid fa-pen fa-1x"></i></Link>
                             <i className="fa-solid fa-trash fa-1x" 
                                 onClick={()=>confirmDelete(e._id)}>

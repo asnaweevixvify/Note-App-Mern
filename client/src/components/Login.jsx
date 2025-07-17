@@ -25,9 +25,9 @@ function Login({changeStatus}) {
           title: res.data.msg,
           icon: "success"
       });
-      navigate('/')
-      authenticate(res)
-      changeStatus(true)
+        navigate('/')
+        authenticate(res)
+        changeStatus(true)
       }
       else if(res.data.msg === 'รหัสผ่านไม่ถูกต้อง'){
         Swal.fire({

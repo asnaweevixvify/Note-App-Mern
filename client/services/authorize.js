@@ -2,6 +2,7 @@ export function authenticate (res){
     if(window !== undefined){ 
         sessionStorage.setItem("token",JSON.stringify(res.data.token))
         sessionStorage.setItem("user",JSON.stringify(res.data.username))
+        sessionStorage.setItem("id",JSON.stringify(res.data.userId))
     }
 }
 
@@ -20,6 +21,17 @@ export function getUser(){
     if(window !== undefined){
         if(sessionStorage.getItem('user')){
             return JSON.parse(sessionStorage.getItem('user'))
+        }
+    }
+    else{
+        return false
+    }
+}
+
+export function getId(){
+    if(window !== undefined){
+        if(sessionStorage.getItem('id')){
+            return JSON.parse(sessionStorage.getItem('id'))
         }
     }
     else{

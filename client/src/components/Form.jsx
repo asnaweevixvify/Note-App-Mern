@@ -3,11 +3,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { getToken } from '../../services/authorize'
+import { getToken,getId } from '../../services/authorize'
 
 
 function Form() {
-    const [data,setData] = useState({title:'',content:''})
+    const [data,setData] = useState({title:'',content:'',userId:getId()})
     const navigate = useNavigate()
     const token = getToken()
 

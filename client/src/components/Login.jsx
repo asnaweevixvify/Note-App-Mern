@@ -20,7 +20,6 @@ function Login({changeStatus}) {
       params:{username,password}
     })
     .then((res)=>{
-      if(res.data.msg === 'เข้าสู่ระบบสำเร็จ'){
         Swal.fire({
           title: res.data.msg,
           icon: "success"
@@ -28,24 +27,11 @@ function Login({changeStatus}) {
         navigate('/')
         authenticate(res)
         changeStatus(true)
-      }
-      else if(res.data.msg === 'รหัสผ่านไม่ถูกต้อง'){
-        Swal.fire({
-          title: res.data.msg,
-          icon: "error"
-      });
-      }
-      else{
-        Swal.fire({
-          title: res.data.msg,
-          icon: "error"
-      });
-      }
     })
     .catch((err)=>{
       Swal.fire({
         icon: "error",
-        title: err.response.data.error,
+        title: err.response.data.msg,
       });
     })
 }

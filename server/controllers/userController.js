@@ -11,7 +11,7 @@ module.exports.createUser = (req,res)=>{
         }
         userData.password = hash
         User.create(userData)
-        .then(()=>res.json({msg:'สร้างบัญชีสำเร็จ ✅'}))
+        .then(()=>res.json({msg:'สร้างบัญชีสำเร็จ'}))
         .catch(()=>res.status(400).json({error:'username นี้ถูกใช้งานแล้ว'}))
     })
 }

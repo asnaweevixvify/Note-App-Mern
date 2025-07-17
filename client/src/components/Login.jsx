@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { authenticate } from '../../services/authorize'
 
-function Login() {
+function Login({changeStatus}) {
   const [userData,setUserData] = useState({})
   const {username,password} = userData
   const navigate = useNavigate()
@@ -27,6 +27,7 @@ function Login() {
       });
       navigate('/')
       authenticate(res)
+      changeStatus(true)
       }
       else if(res.data.msg === 'รหัสผ่านไม่ถูกต้อง'){
         Swal.fire({

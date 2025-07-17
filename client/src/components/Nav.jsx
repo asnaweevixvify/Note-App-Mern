@@ -1,13 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { getUser,logout } from '../../services/authorize'
-import { useState,useEffect } from 'react'
+import { logout } from '../../services/authorize'
 import Swal from 'sweetalert2'
 import alert from '../../services/confirmLogout'
 
-function Nav() {
-  const [status,setStatus] = useState(false)
-
+function Nav({changeStatus,status}) {
   const removeToken = ()=>{
     Swal.fire(alert).then((result) => {
       if (result.isConfirmed) {
@@ -17,18 +14,9 @@ function Nav() {
         title: "ออกจากระบบสำเร็จ",
         icon: "success"
       });
+      changeStatus(false)
     });
   }
-
-  useEffect(()=>{
-    const user = getUser()
-    if(user){
-      setStatus(true)
-    }
-    else{
-      setStatus(false)
-    }
-  },[])
 
   return (
     <div className="nav-container">

@@ -17,7 +17,7 @@ h1,h2,h3,h4,h5{
   font-size: 60px;
 }
 .nav-container ul{
-  width: 30vw;
+  width: 600px;
   justify-content: space-around;
   align-items: center;
   display: flex;
@@ -27,6 +27,7 @@ h1,h2,h3,h4,h5{
 .nav-container li{
   font-family: 'kanit';
   font-size: 20px;
+  cursor: pointer;
 }
 .nav-container a{
   color: white;
@@ -96,4 +97,7 @@ i{
 }
 .form-container p{
   font-family: 'kanit';
+}
+.confirmPass{
+  color: red;
 }

@@ -3,10 +3,12 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
-import confirmAlert from '../../services/notification'
+import confirmAlert from '../../services/confirmDelete'
+import { getToken } from '../../services/authorize'
 
 function Home() {
     const [data,setData] = useState([])
+    const token = getToken()
 
     const getData = ()=>{
         axios.get(`${import.meta.env.VITE_APP_API}/api/getData`)
@@ -24,7 +26,8 @@ function Home() {
     }
 
     const deleteNote = (id)=>{
-        axios.delete(`${import.meta.env.VITE_APP_API}/api/deleteItem/${id}`)
+        axios.delete(`${import.meta.env.VITE_APP_API}/api/deleteItem/${id}`,
+        {headers:{authorization:`Bearer ${token}`}})
        .then(()=>{
             Swal.fire({
                 title: "ลบข้อมูลสำเร็จ",
@@ -48,12 +51,14 @@ function Home() {
                     <div className="note-box" key={index}>
                         <h2>{e.title}</h2>
                         {e.content}
-                        <div className="icon">
+                        {getToken() &&
+                            <div className="icon">
                             <Link to={`/edit/${e._id}`}><i className="fa-solid fa-pen fa-1x"></i></Link>
                             <i className="fa-solid fa-trash fa-1x" 
                                 onClick={()=>confirmDelete(e._id)}>
                             </i>
                         </div>
+                        }
                     </div>
                 )
             })}

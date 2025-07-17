@@ -4,15 +4,18 @@ import { useState ,useEffect} from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { getToken } from '../../services/authorize'
 
 function Edit() {
     const [data,setData] = useState({title:'',content:''})
     const {title,content} = data
     const {id} = useParams()
     const navigate = useNavigate()
+    const token = getToken()
 
     const getOldData = ()=>{
-        axios.get(`${import.meta.env.VITE_APP_API}/api/getOldData/${id}`)
+        axios.get(`${import.meta.env.VITE_APP_API}/api/getOldData/${id}`,
+        {headers:{authorization:`Bearer ${token}`}})
         .then((res)=>setData(res.data.data))
         .catch((err)=>console.log(err))
     }
@@ -23,7 +26,8 @@ function Edit() {
 
     const submitData = (e)=>{
         e.preventDefault()
-        axios.put(`${import.meta.env.VITE_APP_API}/api/editItem/${id}`,data)
+        axios.put(`${import.meta.env.VITE_APP_API}/api/editItem/${id}`,data),
+        {headers:{authorization:`Bearer ${token}`}}
         .then(()=>{
             Swal.fire({
                 title: "อัพเดทข้อมูลสำเร็จ",

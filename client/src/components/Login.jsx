@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { authenticate } from '../../services/authorize'
+import { useLocation } from 'react-router-dom'
+import { getToken} from '../../services/authorize'
 
 function Login({changeStatus}) {
   const [userData,setUserData] = useState({})
   const {username,password} = userData
   const navigate = useNavigate()
+  const location = useLocation()
 
   const inputvalue = (topic)=>{
     return (e)=> setUserData({...userData,[topic]:e.target.value})
@@ -35,6 +38,11 @@ function Login({changeStatus}) {
       });
     })
 }
+  useEffect(()=>{
+    if(location.pathname === '/login' && getToken()){
+      navigate('/')
+    }
+  },[location])
 
   return (
     <div className="form-container">

@@ -4,12 +4,15 @@ import { useState,useEffect } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { getToken } from '../../services/authorize'
 
 function Register() {
   const [userData,setUserData] = useState({username:'',password:''})
   const [correct,setCorrect] = useState('blank')
   const [status,setStatus] = useState(true)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const {username,password} = userData
 
@@ -54,6 +57,12 @@ function Register() {
     }
     return
   },[username,password,correct])
+
+  useEffect(()=>{
+    if(location.pathname === '/register' && getToken()){
+      navigate('/')
+    }
+  },[location])
 
   return (
     <div className="form-container">

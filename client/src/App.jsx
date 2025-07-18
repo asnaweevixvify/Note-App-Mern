@@ -7,9 +7,10 @@ import Edit from './components/Edit'
 import Login from './components/Login'
 import Register from './components/Register'
 import { BrowserRouter as Router,Route,Link,Routes, BrowserRouter } from 'react-router-dom'
+import { getUser } from '../services/authorize'
 
 function App() {
-  const [status,setStatus] = useState(false)
+  const [status,setStatus] = useState(!!getUser())
 
   const changeStatus = (curr)=>{
     setStatus(curr)

@@ -5,6 +5,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { getToken } from '../../services/authorize'
+import { useLocation } from 'react-router-dom'
 
 function Edit() {
     const [data,setData] = useState({title:'',content:''})
@@ -42,6 +43,12 @@ function Edit() {
     useEffect(()=>{
         getOldData()
     },[])
+
+    useEffect(()=>{
+        if(location.pathname.startsWith('/edit') && !getToken()){
+            navigate('/login')
+        }
+    },[location])
 
   return (
     <div className="form-container">

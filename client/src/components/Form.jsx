@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { getToken,getId } from '../../services/authorize'
-
+import { useLocation } from 'react-router-dom'
 
 function Form() {
     const [data,setData] = useState({title:'',content:'',userId:getId()})
     const navigate = useNavigate()
+    const location = useLocation()
     const token = getToken()
 
     const inputValue = (topic)=>{
@@ -29,6 +30,12 @@ function Form() {
         .then(()=>navigate('/'))
         .catch((err)=>console.log(err))
     }
+
+    useEffect(()=>{
+        if(location.pathname === '/form' && !getToken()){
+            navigate('/login')
+        }
+    },[location])
 
   return (
     <div className="form-container">
